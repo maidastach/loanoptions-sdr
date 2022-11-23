@@ -26,15 +26,11 @@ export const setLoading = (
   state.loading = action.payload;
 };
 
-export const setError = (state: ReduxState, action: PayloadAction<string>) => {
-  state.error = action.payload;
-};
-
-export const setSuccess = (
+export const setResponseStatus = (
   state: ReduxState,
-  action: PayloadAction<string>
+  action: PayloadAction<ReduxState["responseStatus"]>
 ) => {
-  state.success = action.payload;
+  state.responseStatus = action.payload;
 };
 
 const reducers = {
@@ -42,8 +38,7 @@ const reducers = {
   addEntry,
   deleteEntry,
   setLoading,
-  setError,
-  setSuccess,
+  setResponseStatus,
 };
 
 export default reducers;

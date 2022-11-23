@@ -30,19 +30,27 @@ export const useTableReducers = () => {
 
       // dispatch load data
       dispatch(tableActions.loadData(response.data));
+      console.log(response.data);
 
       // dispatch success
-      dispatch(tableActions.setSuccess("Data Loaded Succesfully"));
+      dispatch(
+        tableActions.setResponseStatus({
+          message: "Data Loaded Succesfully",
+          error: false,
+        })
+      );
     } catch (error: any) {
       console.error(error);
 
       // dispatch new error
       dispatch(
-        tableActions.setError(
-          error?.message ||
+        tableActions.setResponseStatus({
+          message:
+            error?.message ||
             error?.data?.message ||
-            "Error Fetching Data. Try Again."
-        )
+            "Error Fetching Data. Try Again.",
+          error: true,
+        })
       );
     } finally {
       // dispatch loding false
@@ -50,8 +58,7 @@ export const useTableReducers = () => {
 
       // removing messages after 3s
       setTimeout(() => {
-        dispatch(tableActions.setError(""));
-        dispatch(tableActions.setSuccess(""));
+        dispatch(tableActions.setResponseStatus({ message: "", error: false }));
       }, 3000);
     }
   }, [dispatch]);
@@ -74,7 +81,10 @@ export const useTableReducers = () => {
 
           // dispatch success
           dispatch(
-            tableActions.setSuccess(`Entry ${handler_action}ed succesfully`)
+            tableActions.setResponseStatus({
+              message: `Entry ${handler_action}ed succesfully`,
+              error: false,
+            })
           );
 
           // dispatch loding false
@@ -85,11 +95,13 @@ export const useTableReducers = () => {
 
         // dispatch new error
         dispatch(
-          tableActions.setError(
-            error?.message ||
+          tableActions.setResponseStatus({
+            message:
+              error?.message ||
               error?.data?.message ||
-              `Error ${handler_action}ing entry. Try Again.`
-          )
+              `Error ${handler_action}ing entry. Try Again.`,
+            error: true,
+          })
         );
 
         // dispatch loding false
@@ -97,8 +109,9 @@ export const useTableReducers = () => {
       } finally {
         // removing messages after 3s
         setTimeout(() => {
-          dispatch(tableActions.setError(""));
-          dispatch(tableActions.setSuccess(""));
+          dispatch(
+            tableActions.setResponseStatus({ message: "", error: false })
+          );
         }, 3000);
       }
     },

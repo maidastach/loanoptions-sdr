@@ -10,6 +10,5 @@ export interface TableData {
 export interface ReduxState {
   loading: boolean;
   data: TableData[];
-  error: string;
-  success: string;
+  responseStatus: { message: string; error: boolean };
 }

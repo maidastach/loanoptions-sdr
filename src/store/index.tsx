@@ -5,8 +5,7 @@ import reducers from "./reducers";
 const INITIAL_STATE: ReduxState = {
   loading: false,
   data: [],
-  error: "",
-  success: "",
+  responseStatus: { message: "", error: false },
 };
 
 export const tableSlice = createSlice({
