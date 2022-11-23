@@ -6,3 +6,10 @@ export interface TableData {
   name: string;
   "state-province": null;
 }
+
+export interface ReduxState {
+  loading: boolean;
+  data: TableData[];
+  error: string;
+  success: string;
+}

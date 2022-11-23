@@ -1,10 +1,24 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { configureStore, createSlice } from "@reduxjs/toolkit";
+import { ReduxState } from "../interfaces";
 import reducers from "./reducers";
 
+const INITIAL_STATE: ReduxState = {
+  loading: false,
+  data: [],
+  error: "",
+  success: "",
+};
+
 export const tableSlice = createSlice({
-  name: "table",
-  initialState: [],
+  name: "tableState",
+  initialState: INITIAL_STATE,
   reducers: reducers,
 });
 
-export const cartActions = tableSlice.actions;
+export const store = configureStore({
+  reducer: {
+    tableState: tableSlice.reducer,
+  },
+});
+
+export const tableActions = tableSlice.actions;

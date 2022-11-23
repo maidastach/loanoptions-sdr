@@ -1,56 +1,49 @@
-export const loadData = () => {};
+import { PayloadAction } from "@reduxjs/toolkit";
+import { ReduxState, TableData } from "../interfaces";
 
-export const addEntry = () => {};
+export const loadData = (
+  state: ReduxState,
+  action: PayloadAction<ReduxState["data"]>
+) => {
+  state.data = action.payload;
+};
 
-export const deleteEntry = () => {};
+export const addEntry = (
+  state: ReduxState,
+  action: PayloadAction<TableData>
+) => {
+  state.data = [...state.data, action.payload];
+};
+
+export const deleteEntry = (state: ReduxState) => {
+  state.data.splice(-1, 1);
+};
+
+export const setLoading = (
+  state: ReduxState,
+  action: PayloadAction<boolean>
+) => {
+  state.loading = action.payload;
+};
+
+export const setError = (state: ReduxState, action: PayloadAction<string>) => {
+  state.error = action.payload;
+};
+
+export const setSuccess = (
+  state: ReduxState,
+  action: PayloadAction<string>
+) => {
+  state.success = action.payload;
+};
 
 const reducers = {
   loadData,
   addEntry,
   deleteEntry,
+  setLoading,
+  setError,
+  setSuccess,
 };
 
 export default reducers;
-
-// replaceData(state, action) {
-//   state.totalQuantity = action.payload.totalQuantity;
-//   state.itemsList = action.payload.itemsList;
-// },
-// addToCart(state, action) {
-//   state.changed = true;
-//   const newItem = action.payload;
-//   // to check if item is already available
-//   const existingItem = state.itemsList.find(
-//     (item) => item.id === newItem.id
-//   );
-
-//   if (existingItem) {
-//     existingItem.quantity++;
-//     existingItem.totalPrice += newItem.price;
-//   } else {
-//     state.itemsList.push({
-//       id: newItem.id,
-//       price: newItem.price,
-//       quantity: 1,
-//       totalPrice: newItem.price,
-//       name: newItem.name,
-//     });
-//     state.totalQuantity++;
-//   }
-// },
-// removeFromCart(state, action) {
-//   state.changed = true;
-//   const id = action.payload;
-
-//   const existingItem = state.itemsList.find((item) => item.id === id);
-//   if (existingItem.quantity === 1) {
-//     state.itemsList = state.itemsList.filter((item) => item.id !== id);
-//     state.totalQuantity--;
-//   } else {
-//     existingItem.quantity--;
-//     existingItem.totalPrice -= existingItem.price;
-//   }
-// },
-// setShowCart(state) {
-//   state.showCart = !state.showCart;
-// },
