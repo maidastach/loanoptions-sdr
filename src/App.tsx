@@ -1,6 +1,14 @@
-const API_ENDPOINT =
-  "http://universities.hipolabs.com/search?country=Australia";
+import { useEffect } from "react";
+import { useFetchData } from "./hooks/useFetchData";
+
+const QUERY = "search?country=Australia";
 
 export const App = () => {
-  return <div className="App"></div>;
+  const { fetchData, isLoading } = useFetchData("table");
+
+  useEffect(() => {
+    fetchData(QUERY);
+  }, [fetchData]);
+
+  return <div>{`${isLoading}`}</div>;
 };
