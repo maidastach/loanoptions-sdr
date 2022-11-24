@@ -4,7 +4,7 @@ import axios from "../api/axios";
 import { ReduxState } from "../interfaces";
 import { tableActions } from "../store";
 
-const QUERY = "search?country=Australia";
+const QUERY = "search?country=Australia/";
 
 export enum RESPONSE_MESSAGES {
   DATA_LOADED = "Data Loaded Succesfully",
