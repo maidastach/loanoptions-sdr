@@ -16,7 +16,10 @@ export const CustomMaterialSnackbar = ({
   data: ReduxState["responseStatus"];
 }) => {
   return (
-    <Snackbar open={!!data.message}>
+    <Snackbar
+      anchorOrigin={{ vertical: "top", horizontal: "left" }}
+      open={!!data.message}
+    >
       <Alert severity={data.error ? "error" : "success"} sx={{ width: "100%" }}>
         {data.message}
       </Alert>

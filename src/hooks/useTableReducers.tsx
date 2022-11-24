@@ -6,9 +6,18 @@ import { tableActions } from "../store";
 
 const QUERY = "search?country=Australia";
 
+export enum RESPONSE_MESSAGES {
+  DATA_LOADED = "Data Loaded Succesfully",
+  ERROR_FETCH_DATA = "Error Fetching Data. Try Again.",
+  FIRST_NEED_LOAD_DATA = "You must load the data first",
+  VOID_ERROR = "",
+  ADD_SUCCESS = "Entry added succesfully",
+  DELETE_SUCCESS = "Entry deleted succesfully",
+}
+
 export enum HANDLER_ACTIONS {
-  ADD = "add",
-  DELETE = "delet",
+  ADD = "ADD_SUCCESS",
+  DELETE = "DELETE_SUCCESS",
 }
 
 export const useTableReducers = () => {
@@ -20,7 +29,7 @@ export const useTableReducers = () => {
     (state: { tableState: ReduxState }) => state.tableState
   );
 
-  const handleLoad = useCallback(async () => {
+  const handleLoad = useCallback(async (): Promise<void> => {
     try {
       // dispatch loding true
       dispatch(tableActions.setLoading(true));
@@ -30,12 +39,11 @@ export const useTableReducers = () => {
 
       // dispatch load data
       dispatch(tableActions.loadData(response.data));
-      console.log(response.data);
 
       // dispatch success
       dispatch(
         tableActions.setResponseStatus({
-          message: "Data Loaded Succesfully",
+          message: RESPONSE_MESSAGES.DATA_LOADED,
           error: false,
         })
       );
@@ -48,7 +56,7 @@ export const useTableReducers = () => {
           message:
             error?.message ||
             error?.data?.message ||
-            "Error Fetching Data. Try Again.",
+            RESPONSE_MESSAGES.ERROR_FETCH_DATA,
           error: true,
         })
       );
@@ -58,17 +66,23 @@ export const useTableReducers = () => {
 
       // removing messages after 3s
       setTimeout(() => {
-        dispatch(tableActions.setResponseStatus({ message: "", error: false }));
+        dispatch(
+          tableActions.setResponseStatus({
+            message: RESPONSE_MESSAGES.VOID_ERROR,
+            error: false,
+          })
+        );
       }, 3000);
     }
   }, [dispatch]);
 
   const handleAddOrDelete = useCallback(
-    (handler_action: HANDLER_ACTIONS.ADD | HANDLER_ACTIONS.DELETE) => {
+    (handler_action: HANDLER_ACTIONS): void => {
       try {
         // dispatch loding true
         dispatch(tableActions.setLoading(true));
-        if (!tableData.length) throw new Error("You must load the data first");
+        if (!tableData.length)
+          throw new Error(RESPONSE_MESSAGES.FIRST_NEED_LOAD_DATA);
 
         // simulating POST/DELETE request
         setTimeout(() => {
@@ -82,7 +96,7 @@ export const useTableReducers = () => {
           // dispatch success
           dispatch(
             tableActions.setResponseStatus({
-              message: `Entry ${handler_action}ed succesfully`,
+              message: RESPONSE_MESSAGES[handler_action],
               error: false,
             })
           );
@@ -110,7 +124,10 @@ export const useTableReducers = () => {
         // removing messages after 3s
         setTimeout(() => {
           dispatch(
-            tableActions.setResponseStatus({ message: "", error: false })
+            tableActions.setResponseStatus({
+              message: RESPONSE_MESSAGES.VOID_ERROR,
+              error: false,
+            })
           );
         }, 3000);
       }
