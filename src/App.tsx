@@ -8,6 +8,7 @@ import { CustomMaterialBackdrop } from "./components/materialUI/backdrop";
 import { CustomFAB, FAB_TYPE } from "./components/materialUI/fab";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./components/materialUI/theme";
+import { CustomMaterialDialog } from "./components/materialUI/dialog";
 
 const AppContainer = styled.main.attrs({ className: "app-container" })`
   display: flex;
@@ -48,6 +49,8 @@ export const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <AppContainer>
+        {process.env.NODE_ENV !== "development" && <CustomMaterialDialog />}
+
         {!tableData.length && (
           <LoadFABContainer>
             <CustomFAB delay="1s" type={FAB_TYPE.LOAD} onClick={handleLoad} />
