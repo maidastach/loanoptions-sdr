@@ -7,6 +7,7 @@ LoanOptions.ai
 # Task 1 - API - React
 
 Description
+
 Built a single Page React application which fetches information from an API and displays
 the results on a table.
 
