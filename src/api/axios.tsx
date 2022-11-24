@@ -12,5 +12,5 @@ export default axios.create({
     "Access-Control-Allow-Methods": "*",
     "Access-Control-Allow-Headers": "*",
   },
-  withCredentials: false,
+  // withCredentials: false,
 });
