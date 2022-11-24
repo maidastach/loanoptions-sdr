@@ -14,7 +14,8 @@ Live URL:
 https://loanoptions-sdr.vercel.app/
 
 Instructions
-● When the page loads, the table is empty.
+
+    ● When the page loads, the table is empty.
 
     ● Based on the API information, I structured the table columns and naming
 
