@@ -14,6 +14,8 @@ the results on a table.
 Live URL:
 https://loanoptions-sdr.vercel.app/
 
+
+
 Instructions
 
     ● When the page loads, the table is empty.
