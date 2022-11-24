@@ -6,11 +6,4 @@ const BASE_URL = "http://universities.hipolabs.com/";
 
 export default axios.create({
   baseURL: BASE_URL,
-  headers: {
-    "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "*",
-    "Access-Control-Allow-Headers": "*",
-  },
-  // withCredentials: false,
 });
